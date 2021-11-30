@@ -31,7 +31,7 @@ namespace QRCodeReader
             var qrCodeReader = new BarcodeReader();
             var qrCodeResult = qrCodeReader.Decode(qrCodeBitmap);
 
-            var file = qrPath + ".txt";
+            var file = qrPath + ".log";
             if (File.Exists(file))
             {
                 File.Delete(file);
@@ -39,7 +39,7 @@ namespace QRCodeReader
             File.WriteAllText(file, qrCodeResult.Text);
 
             Console.WriteLine(""); Console.WriteLine(""); Console.WriteLine("");
-            Console.WriteLine("=====" + qrPath);
+            Console.WriteLine("===== Wrote === " + file);
             Console.WriteLine(qrCodeResult.Text);
 
             Console.WriteLine(""); Console.WriteLine(""); Console.WriteLine("");
@@ -49,7 +49,7 @@ namespace QRCodeReader
             var qrCodeReader2 = new BarcodeReader();
             var qrCodeResult2 = qrCodeReader2.Decode(qrCodeBitmap2);
 
-            var file2 = qrPath2 + ".txt";
+            var file2 = qrPath2 + ".log";
             if (File.Exists(file2))
             {
                 File.Delete(file2);
@@ -58,7 +58,7 @@ namespace QRCodeReader
 
 
             Console.WriteLine(""); Console.WriteLine(""); Console.WriteLine("");
-            Console.WriteLine("=====" + qrPath2);
+            Console.WriteLine("===== Wrote ===" + file2);
             Console.WriteLine(qrCodeResult2.Text);
             Console.WriteLine("============================================");
 
