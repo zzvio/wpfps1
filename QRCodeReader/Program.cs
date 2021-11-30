@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,18 +26,40 @@ namespace QRCodeReader
 
 
             //read the qr code 
-            var qrCodeBitmap = (Bitmap)Bitmap.FromFile(@"C:\Taurus\code-test\src\test\kotlin\codetest\BitBuffer.kt.2.1.png");
+            var qrPath = @"C:\Taurus\code-test\data\codetest\BitBuffer.kt0201.png";
+            var qrCodeBitmap = (Bitmap)Bitmap.FromFile(qrPath);
             var qrCodeReader = new BarcodeReader();
             var qrCodeResult = qrCodeReader.Decode(qrCodeBitmap);
-            Console.WriteLine("BitBuffer.kt.2.1.png ============================================ ");
-            Console.WriteLine(qrCodeResult.Text);
-            Console.WriteLine("============================================");
 
-            qrCodeBitmap = (Bitmap)Bitmap.FromFile(@"C:\Taurus\code-test\src\test\kotlin\codetest\BitBuffer.kt.2.2.png");
-            qrCodeReader = new BarcodeReader();
-            qrCodeResult = qrCodeReader.Decode(qrCodeBitmap);
-            Console.WriteLine("BitBuffer.kt.2.2.png ============================================ ");
+            var file = qrPath + ".txt";
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
+            File.WriteAllText(file, qrCodeResult.Text);
+
+            Console.WriteLine(""); Console.WriteLine(""); Console.WriteLine("");
+            Console.WriteLine("=====" + qrPath);
             Console.WriteLine(qrCodeResult.Text);
+
+            Console.WriteLine(""); Console.WriteLine(""); Console.WriteLine("");
+
+            var qrPath2 = @"C:\Taurus\code-test\data\codetest\BitBuffer.kt0202.png";
+            var qrCodeBitmap2 = (Bitmap)Bitmap.FromFile(qrPath2);
+            var qrCodeReader2 = new BarcodeReader();
+            var qrCodeResult2 = qrCodeReader2.Decode(qrCodeBitmap2);
+
+            var file2 = qrPath2 + ".txt";
+            if (File.Exists(file2))
+            {
+                File.Delete(file2);
+            }
+            File.WriteAllText(file2, qrCodeResult2.Text);
+
+
+            Console.WriteLine(""); Console.WriteLine(""); Console.WriteLine("");
+            Console.WriteLine("=====" + qrPath2);
+            Console.WriteLine(qrCodeResult2.Text);
             Console.WriteLine("============================================");
 
 
