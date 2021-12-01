@@ -26,7 +26,9 @@ namespace QRCodeReader
 
 
             //read the qr code 
-            var qrPath = @"C:\Taurus\code-test\data\codetest\BitBuffer.kt0201.png";
+            var qrPath = @"C:\Taurus\code-test\data\capture2.png";
+
+            //var qrPath = @"C:\Taurus\code-test\data\codetest\BitBuffer.kt0201.png";
             var qrCodeBitmap = (Bitmap)Bitmap.FromFile(qrPath);
             var qrCodeReader = new BarcodeReader();
             var qrCodeResult = qrCodeReader.Decode(qrCodeBitmap);
@@ -44,7 +46,8 @@ namespace QRCodeReader
 
             Console.WriteLine(""); Console.WriteLine(""); Console.WriteLine("");
 
-            var qrPath2 = @"C:\Taurus\code-test\data\codetest\BitBuffer.kt0202.png";
+            //var qrPath2 = @"C:\Taurus\code-test\data\codetest\BitBuffer.kt0202.png";
+            var qrPath2 = @"C:\Taurus\code-test\data\capture.png";
             var qrCodeBitmap2 = (Bitmap)Bitmap.FromFile(qrPath2);
             var qrCodeReader2 = new BarcodeReader();
             var qrCodeResult2 = qrCodeReader2.Decode(qrCodeBitmap2);
@@ -62,6 +65,24 @@ namespace QRCodeReader
             Console.WriteLine(qrCodeResult2.Text);
             Console.WriteLine("============================================");
 
+            var s = qrCodeResult2.Text;
+
+            var i1 = s.IndexOf("{");
+            var i2 = s.IndexOf("}");
+            var str = s.Substring(0, i1);
+            var seq = s.Substring(i1 + 1, 4);
+            var body = s.Substring(i2 + 1);
+
+            Console.WriteLine(body);
+
+            string corrected = body.Replace('-', '+').Replace('_', '/');
+            if (corrected.Length % 4 > 0)
+                corrected = corrected.PadRight(corrected.Length + 4 - corrected.Length % 4, '=');
+
+            var decodedBytes = System.Convert.FromBase64String(corrected);
+            string codeStr = Encoding.ASCII.GetString(decodedBytes);
+
+            Console.WriteLine(codeStr);
 
 
 
